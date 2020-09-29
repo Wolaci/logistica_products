@@ -33,6 +33,18 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
+                        <li class="nav-item dropdown">
+                            <a id="ManageDropdown" class="nav-link dropdown-toggle" href="#" role="buton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                Produtos <span class="caret"></span>
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right" aria_labelledby="ManageDropdown">
+                                <a class="nav-link" href="{{ route('products.index') }}">{{ __('Produtos Index') }}</a>
+                                <a class="nav-link" href="{{ route('products.create') }}">{{ __('Novo Produto') }}</a>
+
+                            </div>
+                        </li>
 
                     </ul>
 

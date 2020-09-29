@@ -17,6 +17,9 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('title', 150);
             $table->string('descricao');
+            /*$table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');*/
+            $table->foreignid('user_id')->onstrained();
             $table->timestamps();
         });
     }

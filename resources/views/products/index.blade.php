@@ -19,6 +19,7 @@
     <tr>
       <th scope="col">#</th>
       <th scope="col">Título</th>
+      <th>Author</th>
     </tr>
   </thead>
 
@@ -32,6 +33,7 @@
       <a href="{{ url("/products/{$product->id}") }}">
         {{$product->title}}
       </a>
+      <td>{{ $product->user->name }}</td>
       </td>
 
       <td>

@@ -31,6 +31,15 @@
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
+            <strong>Autor</strong>
+            {{$product->user->name}}
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
             <strong>Descrição:</strong>
             {{$product->descricao}}
         </div>

@@ -33,7 +33,7 @@
                             <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Register</a>
                         @endif
                     @endif
-                    <a href="{{ route('products.create') }}" class="ml-4 text-sm text-gray-700 underline">Produtos</a>
+                    <a href="{{ route('produtos.create') }}" class="ml-4 text-sm text-gray-700 underline">Produtos Teste</a>
                 </div>
             @endif
 

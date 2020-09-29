@@ -18,7 +18,7 @@ Após isso vamos ligar o servidor com
 
 ## Utilizando o Projeto
 
-Ao abrir no navegar irá ter três abas, Login, Register e produto teste
+Ao abrir no navegador irá ter três abas, Login, Register e produto teste
 
 ## Produto Teste
 

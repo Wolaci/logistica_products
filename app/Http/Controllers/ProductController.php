@@ -15,7 +15,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-       $products = Product::paginate(3);
+       $products = Product::where('user_id', Auth::id())
+       ->orderBy('created_at', 'desc')
+       ->paginate(3);
        return view('products.index', compact('products'));
     }
 
@@ -66,7 +68,13 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
+        if($product->user_id === Auth::id()){
         return view('products.edit', compact('product'));
+        }else{
+            return redirect()->route('products.index')
+            ->with('error', 'Não pode editar')
+            ->withInput();
+        }
     }
 
     /**
@@ -78,8 +86,14 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+        if($product->user_id === Auth::id()){
         $product->update($request->all());
         return redirect()->route('products.index')->with('success', 'Produto editado com sucesso');;
+        }else{
+            return redirect()->route('products.index')
+            ->with('error', 'Não pode editar')
+            ->withInput();
+        }    
     }
 
     /**
@@ -90,8 +104,16 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        if($product->user_id === Auth::id()){
+
+            
         $product->delete();
 
         return redirect()->route('products.index')->with('success', 'Produto deletado com sucesso');;
+        }else{
+            return redirect()->back()
+            ->with('error', 'Não pode deletar')
+            ->withInput();
+        }
     }
 }

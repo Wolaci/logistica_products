@@ -16,7 +16,10 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('title', 150);
-            $table->string('descricao');
+            $table->text('descricao');
+            $table->integer('preco');
+            $table->integer('lote');
+            $table->integer('avaliacao');
             /*$table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');*/
             $table->foreignid('user_id')->onstrained();

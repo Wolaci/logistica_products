@@ -31,6 +31,31 @@
      </div>
 
      <div class="row">
+        <div class="col">
+                <div class="form-group">
+                <strong>Preço:</strong>
+                <input type="number" name="preco" class="form-control">
+                </div>
+         </div>
+     </div>
+     <div class="row">
+        <div class="col">
+                <div class="form-group">
+                <strong>Lote:</strong>
+                <input type="number" name="lote" class="form-control">
+                </div>
+         </div>
+     </div>
+     <div class="row">
+        <div class="col">
+                <div class="form-group">
+                <strong>Avaliação:</strong>
+                <input type="number" name="avaliacao" class="form-control">
+                </div>
+         </div>
+     </div>
+
+     <div class="row">
         <div class="col text-center">
                 
                 <button type="submit" class="btn col btn-primary">CREATE</button>

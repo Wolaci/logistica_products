@@ -32,6 +32,31 @@
      </div>
 
      <div class="row">
+        <div class="col">
+                <div class="form-group">
+                <strong>Preço:</strong>
+                <input type="number" name="preco" class="form-control" value="{{$product->preco}}">
+                </div>
+         </div>
+     </div>
+     <div class="row">
+        <div class="col">
+                <div class="form-group">
+                <strong>Lote:</strong>
+                <input type="number" name="lote" class="form-control" value="{{$product->lote}}">
+                </div>
+         </div>
+     </div>
+     <div class="row">
+        <div class="col">
+                <div class="form-group">
+                <strong>Avaliação:</strong>
+                <input type="number" name="avaliacao" class="form-control" value="{{$product->avaliacao}}">
+                </div>
+         </div>
+     </div>
+
+     <div class="row">
         <div class="col text-center">
                 
                 <button type="submit" class="btn col btn-primary">UPDATE</button>

@@ -8,8 +8,10 @@ Para começar a utilizar as funcionalidades do projeto você deve realizar essa 
 
 - git clone https://github.com/Wolaci/logistica_products.git
 - composer install
+- cp .env.example .env
+- configurar o .env com seus dados
+- php artisan key:generate
 - php artisan migrate
-
 
 
 Após isso vamos ligar o servidor com
@@ -18,7 +20,7 @@ Após isso vamos ligar o servidor com
 
 ## Utilizando o Projeto
 
-Ao abrir no navegar irá ter três abas, Login, Register e produto teste
+Ao abrir no navegador irá ter três abas, Login, Register e produto teste
 
 ## Produto Teste
 

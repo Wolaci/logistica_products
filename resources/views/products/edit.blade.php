@@ -10,7 +10,7 @@
     </div>
 </div>
 
-<form action="{{ route('products.update', $product->id) }}" method="POST">
+<form action="{{ route('products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
     <div class="row">
@@ -52,6 +52,16 @@
                 <div class="form-group">
                 <strong>Avaliação:</strong>
                 <input type="number" name="avaliacao" class="form-control" value="{{$product->avaliacao}}">
+                </div>
+         </div>
+     </div>
+
+     <div class="row">
+        <div class="col">
+                <div class="form-group">
+                <strong class ="col-2">Imagem:</strong>
+                <img class="col-2" src="{{ asset('storage/'.$product->image->path) }}" alt="">
+                <input class ="col-8" type="file" id="image" name="image" class="form-control">
                 </div>
          </div>
      </div>

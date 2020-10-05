@@ -9,6 +9,16 @@
     </div>
 </div>
 
+@isset($product->image)
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
+            <img src="{{ asset('storage/'.$product->image->path) }}" alt="">
+        </div>
+    </div>
+</div>
+@endisset
+
 
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12">

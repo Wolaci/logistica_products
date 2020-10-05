@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -40,11 +42,33 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         //Product::create($request->all());
-        $product = new Product($request->all());
+        $validateData = $request->validate([
+            'title'=>['required'],
+            'descricao'=>['required'],
+            'preco'=>['required'],
+            'lote'=>['required'],
+            'avaliacao'=>['required'],
+            'image'=> ['mimes:jpeg,png', 'dimensions:min_width=200,min_height=200']
+        ]);
+
+
+        $product = new Product($validateData);
 
         $product->user_id = Auth::id();
 
         $product->save();
+
+        if($request->hasFile('image') and $request->file('image')->isValid()){
+            $extension = $request->image->extension();
+            $image_name = now()->toDateTimeString()."_".substr(base64_encode(sha1(mt_rand())
+            ), 0, 10);
+            $path = $request->image->storeAs('products', $image_name.".".$extension, 'public');
+
+            $image = new Image();
+            $image->product_id = $product->id;
+            $image->path = $path;
+            $image->save();
+        }
         
         return redirect()->route('products.index')->with('success', 'Produto criado com sucesso');
     }
@@ -86,9 +110,38 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+        $validateData = $request->validate([
+            'title'=>['required'],
+            'descricao'=>['required'],
+            'preco'=>['required'],
+            'lote'=>['required'],
+            'avaliacao'=>['required'],
+            'image'=> ['mimes:jpeg,png', 'dimensions:min_width=200,min_height=200']
+        ]);
+
+
+        //$product = new Product($validateData);
         if($product->user_id === Auth::id()){
-        $product->update($request->all());
-        return redirect()->route('products.index')->with('success', 'Produto editado com sucesso');;
+        
+             $product->update($request->all());
+             
+             if($request->hasFile('image') and $request->file('image')->isValid()){
+                 $product->image->delete();
+                 
+                 $extension = $request->image->extension();
+                 $image_name = now()->toDateTimeString()."_".substr(base64_encode(sha1(mt_rand())
+                ), 0, 10);
+                $path = $request->image->storeAs('products', $image_name.".".$extension, 'public');
+                
+                $image = new Image();
+                $image->path = $path;
+                $image->product_id = $product->id;
+                $image->save();
+                
+            }
+            return redirect()->route('products.index')->with('success', 'Produto editado com sucesso');;
+                
+
         }else{
             return redirect()->route('products.index')
             ->with('error', 'Não pode editar')
@@ -105,11 +158,13 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         if($product->user_id === Auth::id()){
-
+            $path = $product->image->path;
             
-        $product->delete();
+            $product->delete();
 
-        return redirect()->route('products.index')->with('success', 'Produto deletado com sucesso');;
+            Storage::disk('public')->delete($path);
+
+            return redirect()->route('products.index')->with('success', 'Produto deletado com sucesso');;
         }else{
             return redirect()->back()
             ->with('error', 'Não pode deletar')

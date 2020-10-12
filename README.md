@@ -12,6 +12,7 @@ Para começar a utilizar as funcionalidades do projeto você deve realizar essa 
 - configurar o .env com seus dados
 - php artisan key:generate
 - php artisan migrate
+- php artisan storage:link
 
 
 Após isso vamos ligar o servidor com

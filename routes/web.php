@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\TipoController;
 use App\Http\Controllers\ProdutosController;
 
 /*
@@ -21,6 +22,7 @@ Route::get('/', function () {
 
 Route::resource('/produtos', ProdutosController::class);
 Route::resource('/products', ProductController::class)->middleware('auth');
+Route::resource('/tipos', TipoController::class)->middleware('auth');
 
 Auth::routes();
 

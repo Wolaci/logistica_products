@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Image;
+use App\Models\Tipo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -30,7 +31,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('products.create');
+        $tipos = Tipo::all();
+        return view('products.create', compact('tipos'));
     }
 
     /**
@@ -48,7 +50,8 @@ class ProductController extends Controller
             'preco'=>['required'],
             'lote'=>['required'],
             'avaliacao'=>['required'],
-            'image'=> ['mimes:jpeg,png', 'dimensions:min_width=200,min_height=200']
+            'image'=> ['mimes:jpeg,png', 'dimensions:min_width=200,min_height=200'],
+            'tipos_id'=>['array']
         ]);
 
 
@@ -57,6 +60,8 @@ class ProductController extends Controller
         $product->user_id = Auth::id();
 
         $product->save();
+
+        $product->tipos()->attach($validateData['tipos_id']);
 
         if($request->hasFile('image') and $request->file('image')->isValid()){
             $extension = $request->image->extension();
@@ -93,7 +98,8 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         if($product->user_id === Auth::id()){
-        return view('products.edit', compact('product'));
+            $tipos = Tipo::all();
+            return view('products.edit', compact('product', 'tipos'));
         }else{
             return redirect()->route('products.index')
             ->with('error', 'Não pode editar')
@@ -116,7 +122,8 @@ class ProductController extends Controller
             'preco'=>['required'],
             'lote'=>['required'],
             'avaliacao'=>['required'],
-            'image'=> ['mimes:jpeg,png', 'dimensions:min_width=200,min_height=200']
+            'image'=> ['mimes:jpeg,png', 'dimensions:min_width=200,min_height=200'],
+            'tipos_id'=>['array']
         ]);
 
 
@@ -124,6 +131,7 @@ class ProductController extends Controller
         if($product->user_id === Auth::id()){
         
              $product->update($request->all());
+             $product->tipos()->sync($validateData['tipos_id']);
              
              if($request->hasFile('image') and $request->file('image')->isValid()){
                  $product->image->delete();

@@ -75,6 +75,20 @@
      </div>
 
      <div class="row">
+        <div class="col">
+                <div class="form-group">
+                <strong>Tipos:</strong>
+                    <select class="custom-select" name="tipos_id[]" multiple>
+                        @foreach ($tipos as $tipo)
+                            <option value="{{ $tipo->id }}">{{ $tipo->name }}</option>
+                        @endforeach    
+                    </select>
+                </div>
+         </div>
+     </div>
+
+
+     <div class="row">
         <div class="col text-center">
                 
                 <button type="submit" class="btn col btn-primary">CREATE</button>
